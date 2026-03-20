@@ -1,23 +1,33 @@
 import random
 
-words = [
-    "python",
-    "programa",
-    "variable",
-    "funcion",
-    "bucle",
-    "cadena",
-    "entero",
-    "lista",
-]
+words = {
+    "programacion": ["python", "variable", "funcion"],
+    "animales": ["perro", "gato", "leon",],
+    "frutas": ["manzana", "pera", "naranja"]
+}
 
-word = random.choice(words)
 guessed = []
 attempts = 6
 points = 6
 
 print("¡Bienvenido al Ahorcado!")
 print()
+
+#Mostras las categorias disponibles
+print("Tipos de categorias:")
+for category in words:
+    print(f"            {category}")
+
+#Verificar que haya ingresado correctamente la categoria
+found = False
+while not found:
+    selection = input("Ingrese la categoria: ").lower()
+    found = selection in words 
+    if not found:
+        print("Por favor ingrese una categoria correctamente.")
+        print()
+
+word = random.choice(words[selection])
 
 while attempts > 0:
     # Mostrar progreso: letras adivinadas y guiones para las que faltan
@@ -39,8 +49,10 @@ while attempts > 0:
 
     letter = input("Ingresá una letra: ").lower()
 
+    #Verificar que sea solo UNA letra
     if len(letter) != 1 or not letter.isalpha():
         print("Entrada no válida")
+        print()
         continue
     
     if letter in guessed:
